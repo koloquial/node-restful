@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
 
 //handle incoming POST requests
 router.post('/', (req, res, next) => {
-    res.status(200).json({
+    res.status(201).json({
         message: 'Hande POST requests to /products'
     });
 });
@@ -41,7 +41,7 @@ router.patch('/:productID', (req, res, next) => {
 //handle DELTE single product with id
 router.delete('/:productID', (req, res, next) => {
     res.status(200).json({
-        message: 'Updated product.'
+        message: 'Delete product.'
     });
 });
 

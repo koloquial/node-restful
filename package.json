@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/koloquial/node-basic-restful/issues"
   },
-  "homepage": "https://github.com/koloquial/node-basic-restful#readme"
+  "homepage": "https://github.com/koloquial/node-basic-restful#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }

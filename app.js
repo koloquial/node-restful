@@ -1,11 +1,7 @@
 const express = require('express');
 const app = express();
 
-//middleware
-app.use((req, res, next) => {
-    res.status(200).json({
-        message: 'Working.',
-    });
-});
+const productRoutes = require('./api/routes/products');
+app.use('/products', productRoutes);
 
 module.exports = app;

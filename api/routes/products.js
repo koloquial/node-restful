@@ -22,13 +22,27 @@ router.get('/:productID', (req, res, next) => {
         res.status(200).json({
             message: 'You discovered special ID',
             id: id
-        })
+        });
     }else{
         res.status(200).json({
             message: 'You passed an ID.',
             id: id
-        })
+        });
     }
+});
+
+//handle PATCH single product with id
+router.patch('/:productID', (req, res, next) => {
+    res.status(200).json({
+        message: 'Updated product.'
+    });
+});
+
+//handle DELTE single product with id
+router.delete('/:productID', (req, res, next) => {
+    res.status(200).json({
+        message: 'Updated product.'
+    });
 });
 
 module.exports = router;

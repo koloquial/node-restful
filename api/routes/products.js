@@ -7,10 +7,24 @@ const Product = require('../models/product');
 //handle incoming GET requests
 router.get('/', (req, res, next) => {
     Product.find()
+    .select('_id name price')
     .exec()
     .then(docs => {
-        console.log(docs);
-        res.status(200).json(docs);
+        const response ={
+            count: docs.length,
+            products: docs.map(doc => {
+                return {
+                    _id: doc._id,
+                    name: doc.name,
+                    price: doc.price,
+                    request: {
+                        type: 'GET',
+                        url: `http://localhost:3000/products/${doc._id}`
+                    }
+                }
+            })
+        }
+        res.status(200).json(response);
     })
     .catch(error => {
         console.log(error);
@@ -33,7 +47,15 @@ router.post('/', (req, res, next) => {
         console.log(result);
         res.status(201).json({
             message: '/products POST',
-            created: product
+            created: {
+                _id: result._id,
+                name: result.name,
+                price: result.price,
+                request:{
+                    type: 'GET',
+                    url: `http://localhost:3000/products/${result._id}`
+                }
+            }
         });
     })
     .catch(error => {
@@ -50,7 +72,6 @@ router.get('/:productID', (req, res, next) => {
     Product.findById(id)
     .exec()
     .then(doc => {
-        console.log(doc);
         if(doc){
             res.status(200).json(doc);
         }else{
@@ -69,7 +90,6 @@ router.patch('/:productID', (req, res, next) => {
     for(const ops of req.body){
         updateOps[ops.propName] = ops.value;
     }
-    console.log('update ops', updateOps)
     Product.updateOne({ _id: id }, { $set: updateOps })
     .exec()
     .then(result => {
